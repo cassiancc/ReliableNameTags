@@ -3,6 +3,7 @@ package com.github.mim1q.convenientnametags.mixin;
 import com.github.mim1q.convenientnametags.ConvenientNameTags;
 import com.github.mim1q.convenientnametags.interfaces.RemovableNameTag;
 import com.github.mim1q.convenientnametags.screen.RenameNameTagScreen;
+import net.minecraft.component.DataComponentTypes;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -44,7 +45,7 @@ public abstract class NameTagItemMixin extends Item {
     if (
       ConvenientNameTags.CONFIG.dropNameTagsOnNameChange
       && !user.getWorld().isClient()
-      && stack.hasCustomName()
+      && stack.contains(DataComponentTypes.CUSTOM_NAME)
       && entity.isAlive()
     ) {
       ((RemovableNameTag) entity).removeNameAndNameTag();

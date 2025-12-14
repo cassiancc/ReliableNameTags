@@ -10,8 +10,8 @@ plugins {
 
 java {
   withSourcesJar()
-  sourceCompatibility = JavaVersion.VERSION_17
-  targetCompatibility = JavaVersion.VERSION_17
+  sourceCompatibility = JavaVersion.VERSION_21
+  targetCompatibility = JavaVersion.VERSION_21
 }
 
 base {
@@ -24,7 +24,7 @@ version = ModData.version
 repositories {
   mavenCentral()
   maven("https://jitpack.io")
-  maven("https://maven.draylar.dev/releases")
+  maven("https://repo.sleeping.town/")
 }
 
 dependencies {
@@ -32,7 +32,7 @@ dependencies {
   mappings("net.fabricmc:yarn:${Versions.yarn}:v2")
   modImplementation("net.fabricmc:fabric-loader:${Versions.fabricLoader}")
   modImplementation("net.fabricmc.fabric-api:fabric-api:${Versions.fabricApi}")
-  modImplementation(include("dev.draylar.omega-config:omega-config-base:${Versions.omegaConfig}")!!)
+  modImplementation(include("folk.sisby:kaleido-config:${Versions.kaleidoConfig}")!!)
 }
 
 @Suppress("UnstableApiUsage")
@@ -45,7 +45,7 @@ tasks {
   }
   withType<JavaCompile> {
     configureEach {
-      options.release.set(17)
+      options.release.set(21)
     }
   }
 }

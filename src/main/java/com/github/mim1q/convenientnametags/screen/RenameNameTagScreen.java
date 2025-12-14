@@ -1,7 +1,7 @@
 package com.github.mim1q.convenientnametags.screen;
 
 import com.github.mim1q.convenientnametags.ConvenientNameTags;
-import com.github.mim1q.convenientnametags.network.RenameNameTagPacket;
+import com.github.mim1q.convenientnametags.network.RenameNameTagPayload;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
@@ -13,6 +13,7 @@ import net.minecraft.client.gui.tooltip.Tooltip;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.component.DataComponentTypes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
@@ -95,7 +96,7 @@ public class RenameNameTagScreen extends Screen {
     this.addDrawableChild(cancelButton);
 
     // Set default input text to current name
-    if (this.itemStack.hasCustomName()) {
+    if (this.itemStack.contains(DataComponentTypes.CUSTOM_NAME)) {
       this.textField.setText(this.itemStack.getName().getString());
       this.clearButton.active = true;
     }
@@ -126,7 +127,7 @@ public class RenameNameTagScreen extends Screen {
   }
 
   private boolean canApply() {
-    String currentName = this.itemStack.hasCustomName() ? this.itemStack.getName().getString() : "";
+    String currentName = this.itemStack.contains(DataComponentTypes.CUSTOM_NAME) ? this.itemStack.getName().getString() : "";
     String newName = this.textField.getText();
     var costMultiplier = ConvenientNameTags.CONFIG.renameCostPerWholeStack ? 1 : this.itemStack.getCount();
     var cost = ConvenientNameTags.CONFIG.renameCost * costMultiplier;
@@ -143,7 +144,7 @@ public class RenameNameTagScreen extends Screen {
   }
 
   private void sendRenamePacket(String customName) {
-    ClientPlayNetworking.send(RenameNameTagPacket.ID, new RenameNameTagPacket(customName));
+    ClientPlayNetworking.send(new RenameNameTagPayload(customName));
   }
 
   @Override
@@ -151,7 +152,7 @@ public class RenameNameTagScreen extends Screen {
     int halfWidth = this.width / 2;
     int halfHeight = this.height / 2;
 
-    this.renderBackground(drawContext);
+    this.renderBackground(drawContext, mouseX, mouseY, delta);
     this.textRenderer.draw(
       this.getTitle(),
       halfWidth - 100.0F,

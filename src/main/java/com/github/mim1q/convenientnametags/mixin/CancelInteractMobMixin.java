@@ -1,6 +1,7 @@
 package com.github.mim1q.convenientnametags.mixin;
 
 import com.github.mim1q.convenientnametags.ConvenientNameTags;
+import net.minecraft.component.DataComponentTypes;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.mob.MobEntity;
@@ -36,7 +37,7 @@ public abstract class CancelInteractMobMixin extends Entity {
     ItemStack stack = player.getStackInHand(hand);
     boolean isNameTagApplicable =
       stack.isOf(Items.NAME_TAG)
-      && stack.hasCustomName()
+      && stack.contains(DataComponentTypes.CUSTOM_NAME)
       && !stack.getName().equals(this.getCustomName());
     boolean areShearsApplicable =
       ConvenientNameTags.CONFIG.enableNameTagShearing
