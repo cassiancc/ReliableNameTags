@@ -20,6 +20,8 @@ Toil and Trouble is a client and server mod for Fabric 1.21.1. Its dependencies 
 ## Features
 
 - Anvils are no longer required to rename a name tag. Just right click with the name tag, and a screen will open allowing the name tag to be rena,ed. 
+- Items can be renamed by crafting name tags with items.
+- Renamed mobs will drop their name tags when killed. They can also be sheared to remove the name.
 
 ## FAQ
 

@@ -12,7 +12,7 @@ import net.minecraft.world.item.ItemStack;
 
 public record RenameNameTagPayload(String customName) implements CustomPacketPayload {
 
-  public static final Type<RenameNameTagPayload> ID = new Type<>(ReliableNameTags.id("rename_name_tag"));
+  public static final Type<RenameNameTagPayload> ID = new Type<>(ReliableNameTags.of("rename_name_tag"));
 
   public static final StreamCodec<RegistryFriendlyByteBuf, RenameNameTagPayload> CODEC = StreamCodec.composite(ByteBufCodecs.STRING_UTF8, RenameNameTagPayload::customName, RenameNameTagPayload::new);
 

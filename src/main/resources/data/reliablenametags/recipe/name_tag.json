@@ -18,7 +18,10 @@
   },
   "fabric:load_conditions": [
     {
-      "condition": "reliablenametags:name_tag_recipe_backport"
+      "condition": "reliablenametags:config",
+      "options": [
+        "enableBackportedCraftingRecipe"
+      ]
     }
   ]
 }
