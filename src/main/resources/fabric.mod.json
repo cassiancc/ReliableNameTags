@@ -1,30 +1,34 @@
 {
   "schemaVersion": 1,
-  "id": "convenientnametags",
+  "id": "reliablenametags",
   "version": "${version}",
-  "name": "Convenient Name Tags",
-  "description": "Lets you right click Name Tags in the air to change their name!",
+  "name": "Reliable Name Tags",
+  "description": "Lets you right click Name Tags in the air to change their name - a port of Convenient Name Tags to modern versions.",
   "authors": [
+    "cassiancc",
     "Mim1q"
   ],
-  "contributors": [
-    "cassiancc"
-  ],
-  "contact": {},
+  "contact": {
+    "sources": "https://github.com/cassiancc/ReliableNameTags",
+    "issues": "https://github.com/cassiancc/ReliableNameTags/issues"
+  },
   "license": "Apache 2.0",
-  "icon": "assets/convenientnametags/icon.png",
+  "icon": "assets/reliablenametags/icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [
-      "com.github.mim1q.convenientnametags.ConvenientNameTags"
+      "cc.cassian.reliablenametags.ReliableNameTags"
     ]
   },
   "mixins": [
-    "convenientnametags.mixins.json"
+    "relaiblenametags.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=0.14.8",
     "fabric-api": "*",
-    "minecraft": ["1.21", "1.21.1"]
+    "minecraft": "1.21.1"
+  },
+  "recommends": {
+    "mcqoy": "*"
   }
 }

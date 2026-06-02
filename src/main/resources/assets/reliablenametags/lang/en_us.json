@@ -1,0 +1,12 @@
+{
+  "gui.reliablenametags.title": "Rename Name Tag",
+  "gui.reliablenametags.experience_required": "Rename Cost: %d",
+  "gui.reliablenametags.not_enough_experience": "Not Enough Experience",
+  "gui.reliablenametags.apply": "✔",
+  "gui.reliablenametags.clear": "_",
+  "gui.reliablenametags.cancel": "x",
+  "gui.reliablenametags.apply.tooltip": "Apply",
+  "gui.reliablenametags.clear.tooltip": "Clear",
+  "gui.reliablenametags.cancel.tooltip": "Cancel",
+  "message.reliablenametags.denylisted": "You tried to use a disallowed name"
+}

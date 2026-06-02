@@ -1,0 +1,10 @@
+{
+  "gui.reliablenametags.title": "이름표 이름 바꾸기",
+  "gui.reliablenametags.experience_required": "필요한 경험치 레벨: %d",
+  "gui.reliablenametags.apply": "✔",
+  "gui.reliablenametags.clear": "_",
+  "gui.reliablenametags.cancel": "x",
+  "gui.reliablenametags.apply.tooltip": "적용",
+  "gui.reliablenametags.clear.tooltip": "지우기",
+  "gui.reliablenametags.cancel.tooltip": "취소"
+}

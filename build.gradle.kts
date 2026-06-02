@@ -1,110 +1,84 @@
-import com.matthewprenger.cursegradle.*
-import net.fabricmc.loom.task.RemapJarTask
-import java.io.FileNotFoundException
-
 plugins {
-  id("fabric-loom") version Versions.loom
-  id("com.modrinth.minotaur") version Versions.minotaur
-  id("com.matthewprenger.cursegradle") version Versions.cursegradle
+  id("net.fabricmc.fabric-loom-remap")
+  `maven-publish`
+}
+
+version = providers.gradleProperty("mod_version").get()
+group = providers.gradleProperty("maven_group").get()
+
+repositories {
+  // Add repositories to retrieve artifacts from in here.
+  // You should only use this when depending on other mods because
+  // Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
+  // See https://docs.gradle.org/current/userguide/declaring_repositories.html
+  // for more information about repositories.
+  maven {
+    name = "Sisby Maven"
+    url = uri("https://repo.sleeping.town/")
+    content {
+      includeGroupAndSubgroups("folk.sisby")
+    }
+  }
+}
+
+dependencies {
+  // To change the versions see the gradle.properties file
+  minecraft("com.mojang:minecraft:${property("deps.minecraft")}")
+  mappings(loom.officialMojangMappings())
+  modImplementation("net.fabricmc:fabric-loader:${property("deps.fabric_loader")}")
+
+  // Fabric API. This is technically optional, but you probably want it anyway.
+  modImplementation("net.fabricmc.fabric-api:fabric-api:${property("deps.fabric_api")}")
+
+  implementation("folk.sisby:kaleido-config:${property("deps.kaleido_config")}")
+  include("folk.sisby:kaleido-config:${property("deps.kaleido_config")}")
+}
+
+tasks.processResources {
+  val version = version
+  inputs.property("version", version)
+
+  filesMatching("fabric.mod.json") {
+    expand("version" to version)
+  }
+}
+
+tasks.withType<JavaCompile>().configureEach {
+  options.release = 21
 }
 
 java {
+  // Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
+  // if it is present.
+  // If you remove this line, sources will not be generated.
   withSourcesJar()
+
   sourceCompatibility = JavaVersion.VERSION_21
   targetCompatibility = JavaVersion.VERSION_21
 }
 
-base {
-  archivesName.set(ModData.id)
-}
+tasks.jar {
+  val projectName = project.name
+  inputs.property("projectName", projectName)
 
-group = ModData.group
-version = ModData.version
-
-repositories {
-  mavenCentral()
-  maven("https://jitpack.io")
-  maven("https://repo.sleeping.town/")
-}
-
-dependencies {
-  minecraft("com.mojang:minecraft:${Versions.minecraft}")
-  mappings("net.fabricmc:yarn:${Versions.yarn}:v2")
-  modImplementation("net.fabricmc:fabric-loader:${Versions.fabricLoader}")
-  modImplementation("net.fabricmc.fabric-api:fabric-api:${Versions.fabricApi}")
-  modImplementation(include("folk.sisby:kaleido-config:${Versions.kaleidoConfig}")!!)
-}
-
-@Suppress("UnstableApiUsage")
-tasks {
-  withType<ProcessResources> {
-    inputs.property("version", ModData.version)
-    filesMatching("fabric.mod.json") {
-      expand("version" to ModData.version)
-    }
-  }
-  withType<JavaCompile> {
-    configureEach {
-      options.release.set(21)
-    }
+  from("LICENSE") {
+    rename { "${it}_$projectName" }
   }
 }
 
-// Publishing
-val secretsFile = rootProject.file("publishing.properties")
-val secrets = Secrets(secretsFile)
-
-val remapJar = tasks.getByName("remapJar") as RemapJarTask
-val newVersionName = "${ModData.id}-${ModData.mcVersions[0]}-${ModData.version}"
-val newChangelog = try {
-  rootProject.file("changelogs/${ModData.id}_${ModData.version}.md").readText()
-} catch (_: FileNotFoundException) {
-  println("No changelog found")
-  ""
-}
-
-if (secrets.isModrinthReady()) {
-  println("Setting up Minotaur")
-  modrinth {
-    token.set(secrets.modrinthToken)
-    projectId.set(secrets.modrinthId)
-    uploadFile.set(remapJar)
-    versionName.set(newVersionName)
-    versionType.set(ModData.versionType)
-    changelog.set(newChangelog)
-    syncBodyFrom.set(rootProject.file("README.md").readText())
-    gameVersions.set(ModData.mcVersions)
-    loaders.set(listOf("fabric"))
-    dependencies {
-      ModData.dependencies.forEach(required::project)
+// configure the maven publication
+publishing {
+  publications {
+    register<MavenPublication>("mavenJava") {
+      from(components["java"])
     }
   }
-}
 
-if (secrets.isCurseforgeReady()) {
-  println("Setting up Cursegradle")
-  curseforge {
-    apiKey = secrets.curseforgeToken
-    project(closureOf<CurseProject> {
-      id = secrets.curseforgeId
-      releaseType = ModData.versionType
-      ModData.mcVersions.forEach(::addGameVersion)
-      changelog = newChangelog
-      changelogType = "markdown"
-      relations(closureOf<CurseRelation> {
-        ModData.dependencies.forEach(::requiredDependency)
-      })
-      mainArtifact(remapJar, closureOf<CurseArtifact> {
-        displayName = newVersionName
-      })
-    })
-    options(closureOf<Options> {
-      forgeGradleIntegration = false
-    })
-  }
-  project.afterEvaluate {
-    tasks.getByName<CurseUploadTask>("curseforge${secrets.curseforgeId}") {
-      dependsOn(remapJar)
-    }
+  // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
+  repositories {
+    // Add repositories to publish to here.
+    // Notice: This block does NOT have the same function as the block in the top level.
+    // The repositories here will be used for publishing your artifact, not for
+    // retrieving dependencies.
   }
 }

@@ -1,0 +1,12 @@
+{
+  "gui.reliablenametags.title": "Zmień nazwę znacznika",
+  "gui.reliablenametags.experience_required": "Wymagany poziom: %d",
+  "gui.reliablenametags.not_enough_experience": "Za mało doświadczenia",
+  "gui.reliablenametags.apply": "✔",
+  "gui.reliablenametags.clear": "_",
+  "gui.reliablenametags.cancel": "x",
+  "gui.reliablenametags.apply.tooltip": "Zatwierdź",
+  "gui.reliablenametags.clear.tooltip": "Wyczyść",
+  "gui.reliablenametags.cancel.tooltip": "Anuluj",
+  "message.reliablenametags.denylisted": "Użyto niedozwolonej nazwy"
+}
