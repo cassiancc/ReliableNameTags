@@ -17,10 +17,15 @@ public class ModConfig extends WrappedConfig {
 	public boolean enableNameTagShearing = true;
 	@Comment("Allow renaming name tags by right-clicking them.")
 	public boolean enableRenameScreen = true;
+	//? if fabric || >26.1 {
+	@Comment("Allow styling text with Placeholder API's QuickText format.")
+	@Comment("Requires Placeholder API.")
+	public boolean allowQuickText = true;
+	//?}
 	//? if =1.21.1 {
-  /*@Comment("Backports the name tag recipe from 26.1")
-  public boolean enableBackportedCraftingRecipe = true;
-  *///?}
+    /*@Comment("Backports the name tag recipe from 26.1")
+    public boolean enableBackportedCraftingRecipe = true;
+    *///?}
 	@SuppressWarnings("unused")
 	@Comment("Adds a recipe type for renaming items.")
 	public boolean renameItemRecipe = true;

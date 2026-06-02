@@ -1,9 +1,9 @@
 package cc.cassian.reliablenametags.network;
 
 import cc.cassian.reliablenametags.ReliableNameTags;
+import eu.pb4.placeholders.api.ParserContext;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -28,7 +28,7 @@ public record RenameNameTagPayload(String customName) implements CustomPacketPay
 					itemStack.remove(DataComponents.CUSTOM_NAME);
 				} else if (ReliableNameTags.canAfford(player, cost)) {
 					player.setExperienceLevels(player.experienceLevel - cost);
-					itemStack.set(DataComponents.CUSTOM_NAME, Component.literal(customName));
+					itemStack.set(DataComponents.CUSTOM_NAME, ReliableNameTags.parse(customName));
 				}
 			}
 		});

@@ -111,6 +111,7 @@ repositories {
             includeGroupAndSubgroups("cc.cassian")
         }
     }
+    maven("https://maven.offsetmonkey538.top/releases") { name = "OffsetMonkey538" }
     mavenCentral()
 }
 
@@ -163,6 +164,10 @@ dependencies {
     if (hasProperty("deps.rrv")) {
         implementation("cc.cassian.rrv:reliable-recipe-viewer-neoforge:${property("deps.rrv")}+${property("deps.minecraft")}")
     }
+    if (hasProperty("deps.placeholder_api")) {
+        implementation("eu.pb4:placeholder-api-neoforge:${property("deps.placeholder_api")}")
+    }
+
 }
 
 stonecutter {

@@ -1,12 +1,7 @@
 # Reliable Name Tags
 
-<center text-align='center'>
-
 <a href='https://modrinth.com/mod/reliable-name-tags/versions?l=fabric'><img alt="fabric" height="56" src="https://raw.githubusercontent.com/intergrav/devins-badges/refs/heads/v3/assets/cozy/supported/fabric_vector.svg"></a>
 <a href='https://modrinth.com/mod/reliable-name-tags/versions?l=neoforge&l=forge'><img alt="forge" height="56" src="https://raw.githubusercontent.com/cassiancc/Cassians-Badges/refs/heads/main/cozy/NeoForge.svg"></a>
-
-</center><br>
-
 
 Lets you right-click Name Tags in the air to change their name - a port of Convenient Name Tags to modern versions.
 
@@ -21,6 +16,7 @@ Reliable Name Tags is a client and server mod for Fabric and NeoForge 1.21.1 and
 ## Features
 
 - Anvils are no longer required to rename a name tag. Just right click with the name tag, and a screen will open allowing the name tag to be renamed. 
+  - Renaming screen supports Placeholder API's QuickText format on Fabric, as well as on NeoForge 26.1+ thanks to an unofficial port.
 - Items can be renamed by crafting name tags with items.
 - Renamed mobs will drop their name tags when killed. They can also be sheared to remove the name.
 
