@@ -166,6 +166,7 @@ dependencies {
     }
     if (hasProperty("deps.placeholder_api")) {
         implementation("eu.pb4:placeholder-api-neoforge:${property("deps.placeholder_api")}")
+        jarJar("eu.pb4:placeholder-api-neoforge:${property("deps.placeholder_api")}")
     }
 
 }

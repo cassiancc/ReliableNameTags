@@ -43,10 +43,12 @@ public class ReliableNameTags {
 		//? fabric || >26.1 {
 		if (Platform.isModLoaded("placeholder-api") && CONFIG.allowQuickText) {
 			return PlaceholderCompat.parse(customName);
-		}
-		//?}
-		else {
+		} else {
 			return Component.literal(customName);
 		}
+		//?} else {
+		/*return Component.literal(customName);
+		*///?}
+
 	}
 }

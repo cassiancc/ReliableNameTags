@@ -1,7 +1,6 @@
 package cc.cassian.reliablenametags.network;
 
 import cc.cassian.reliablenametags.ReliableNameTags;
-import eu.pb4.placeholders.api.ParserContext;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;

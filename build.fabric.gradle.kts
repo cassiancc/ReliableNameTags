@@ -158,6 +158,7 @@ dependencies {
         modImplementation("cc.cassian.rrv:reliable-recipe-viewer-fabric:${property("deps.rrv")}+${property("deps.minecraft")}")
     }
     modImplementation("eu.pb4:placeholder-api:${property("deps.placeholder_api")}")
+    include("eu.pb4:placeholder-api:${property("deps.placeholder_api")}")
 
 }
 
