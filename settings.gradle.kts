@@ -1,17 +1,31 @@
 pluginManagement {
-  repositories {
-    maven {
-      name = "Fabric"
-      url = uri("https://maven.fabricmc.net/")
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        gradlePluginPortal()
+        maven("https://maven.fabricmc.net/") { name = "Fabric" }
+        maven("https://maven.neoforged.net/releases/") { name = "NeoForged" }
+        maven("https://maven.kikugie.dev/snapshots") { name = "KikuGie" }
+        maven("https://maven.kikugie.dev/releases") { name = "KikuGie Releases" }
+        maven("https://maven.parchmentmc.org") { name = "ParchmentMC" }
     }
-    mavenCentral()
-    gradlePluginPortal()
-  }
-
-  plugins {
-    id("net.fabricmc.fabric-loom-remap") version providers.gradleProperty("deps.fabric_loom")
-  }
 }
 
-// Should match your modid
-rootProject.name = "convenient-name-tags"
+plugins {
+    id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
+    id("dev.kikugie.stonecutter") version "0.9.4"
+    id("dev.kikugie.loom-back-compat") version "0.3"
+}
+
+stonecutter {
+    create(rootProject) {
+        fun match(version: String, vararg loaders: String) = loaders
+            .forEach {
+                    version("$version-$it", version).buildscript = "build.$it.gradle.kts"
+            }
+        match("1.21.1", "fabric", "neoforge")
+        match("26.1", "fabric", "neoforge")
+
+        vcsVersion = "26.1-fabric"
+    }
+}

@@ -1,14 +1,14 @@
-package cc.cassian.reliablenametags;
+//? fabric {
+package cc.cassian.reliablenametags.fabric;
 
 import java.util.List;
 
+import cc.cassian.reliablenametags.ReliableNameTags;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import folk.sisby.kaleido.lib.quiltconfig.api.values.TrackedValue;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.util.ExtraCodecs;
-
-import net.minecraft.resources.RegistryOps;
 
 import net.fabricmc.fabric.api.resource.conditions.v1.ResourceCondition;
 import net.fabricmc.fabric.api.resource.conditions.v1.ResourceConditionType;
@@ -25,17 +25,13 @@ public record ConfigEnabledResourceCondition(List<String> options) implements Re
 
   @Override
   public ResourceConditionType<?> getType() {
-    return ReliableNameTags.CONFIG_ENABLED;
+    return FabricEntrypoint.CONFIG_ENABLED;
   }
 
   @Override
-  @SuppressWarnings("all")
   public boolean test(HolderLookup.@Nullable Provider registryLookup) {
-    for (String option : options) {
-      var value = ((TrackedValue<Boolean>) ReliableNameTags.CONFIG.getValue(List.of(option))).value();
-      if (value == false) return false;
-    }
-    return true;
+    return ReliableNameTags.test(options);
   }
 
 }
+//?}

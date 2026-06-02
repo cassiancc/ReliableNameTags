@@ -1,9 +1,9 @@
-{
+  {
   "schemaVersion": 1,
   "id": "reliablenametags",
   "version": "${version}",
   "name": "Reliable Name Tags",
-  "description": "Lets you right click Name Tags in the air to change their name - a port of Convenient Name Tags to modern versions.",
+  "description": "Lets you right-click Name Tags in the air to change their name - a port of Convenient Name Tags to modern versions.",
   "authors": [
     "cassiancc",
     "Mim1q"
@@ -17,16 +17,16 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "cc.cassian.reliablenametags.ReliableNameTags"
+      "cc.cassian.reliablenametags.fabric.FabricEntrypoint"
     ]
   },
   "mixins": [
-    "relaiblenametags.mixins.json"
+    "reliablenametags.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=0.14.8",
     "fabric-api": "*",
-    "minecraft": "1.21.1"
+    "minecraft": "${minecraft}"
   },
   "recommends": {
     "mcqoy": "*"

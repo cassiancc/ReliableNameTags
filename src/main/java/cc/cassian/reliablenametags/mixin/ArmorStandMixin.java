@@ -1,7 +1,7 @@
 package cc.cassian.reliablenametags.mixin;
 
+import cc.cassian.reliablenametags.Platform;
 import cc.cassian.reliablenametags.ReliableNameTags;
-import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -20,24 +20,31 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ArmorStand.class)
 public abstract class ArmorStandMixin extends Entity {
-  public ArmorStandMixin(EntityType<?> type, Level world) {
+
+	public ArmorStandMixin(EntityType<?> type, Level world) {
     super(type, world);
   }
 
-  @Inject(method = "interactAt(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/world/InteractionHand;)Lnet/minecraft/world/InteractionResult;", at = @At("HEAD"), cancellable = true)
-  protected void cancelInteractAt(Player player, Vec3 hitPos, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
-    ItemStack stack = player.getItemInHand(hand);
-    boolean isNameTagApplicable =
-      stack.is(Items.NAME_TAG)
-      && stack.has(DataComponents.CUSTOM_NAME)
-      && !stack.getHoverName().equals(this.getCustomName());
-    boolean areShearsApplicable =
-      ReliableNameTags.CONFIG.enableNameTagShearing
-      && stack.is(ConventionalItemTags.SHEAR_TOOLS)
-      && player.isShiftKeyDown();
+    //? if >26 {
+    @Inject(method = "interact", at = @At("HEAD"), cancellable = true)
+    protected void cancelInteractAt(Player player, InteractionHand hand, Vec3 location, CallbackInfoReturnable<InteractionResult> cir) {
+    //?} else {
+    /*@Inject(method = "interactAt(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/world/InteractionHand;)Lnet/minecraft/world/InteractionResult;", at = @At("HEAD"), cancellable = true)
+      protected void cancelInteractAt(Player player, Vec3 hitPos, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
+    *///?}
 
-    if (isNameTagApplicable || areShearsApplicable) {
-      cir.setReturnValue(InteractionResult.PASS);
+        ItemStack stack = player.getItemInHand(hand);
+        boolean isNameTagApplicable =
+          	stack.is(Items.NAME_TAG)
+          	&& stack.has(DataComponents.CUSTOM_NAME)
+          	&& !stack.getHoverName().equals(this.getCustomName());
+        boolean areShearsApplicable =
+            ReliableNameTags.CONFIG.enableNameTagShearing
+            && stack.is(Platform.SHEAR_TOOLS)
+          	&& player.isShiftKeyDown();
+
+        if (isNameTagApplicable || areShearsApplicable) {
+             cir.setReturnValue(InteractionResult.PASS);
+        }
     }
-  }
 }

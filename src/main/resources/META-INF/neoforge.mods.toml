@@ -1,0 +1,24 @@
+modLoader = "javafml"
+loaderVersion = "[4,)"
+
+issueTrackerURL="https://github.com/cassiancc/Reliable-Name-Tags/issues"
+displayURL="https://modrinth.com/project/reliable-name-tags/"
+logoFile= "/assets/reliablenametags/icon.png"
+authors="cassiancc"
+license="Apache 2.0"
+
+[[mods]]
+modId="reliablenametags"
+version="${version}"
+displayName="Reliable Name Tags"
+description="Lets you right-click Name Tags in the air to change their name - a port of Convenient Name Tags to modern versions."
+
+[[dependencies.reliablenametags]]
+modId="minecraft"
+type="required"
+versionRange="${minecraft}"
+ordering="NONE"
+side="BOTH"
+
+[[mixins]]
+config = "reliablenametags.mixins.json"

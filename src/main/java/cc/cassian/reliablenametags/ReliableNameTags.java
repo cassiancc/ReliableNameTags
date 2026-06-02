@@ -1,33 +1,35 @@
 package cc.cassian.reliablenametags;
 
 import cc.cassian.reliablenametags.config.ModConfig;
-import cc.cassian.reliablenametags.network.RenameNameTagPayload;
 import cc.cassian.reliablenametags.recipe.ReliableNameTagRecipes;
-import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.fabricmc.fabric.api.resource.conditions.v1.ResourceConditionType;
-import net.fabricmc.fabric.api.resource.conditions.v1.ResourceConditions;
-import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.resources.ResourceLocation;
+import folk.sisby.kaleido.lib.quiltconfig.api.values.TrackedValue;
+import net.minecraft.resources.Identifier;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class ReliableNameTags implements ModInitializer {
+import java.util.List;
+
+public class ReliableNameTags {
   public static final String MOD_ID = "reliablenametags";
   public static final Logger LOGGER = LogManager.getLogger();
-  public static final ModConfig CONFIG = ModConfig.createToml(FabricLoader.getInstance().getConfigDir(), "", MOD_ID, ModConfig.class);
-  public static final ResourceConditionType<ConfigEnabledResourceCondition> CONFIG_ENABLED = ResourceConditionType.create(of("config"), ConfigEnabledResourceCondition.CODEC);
+  public static final ModConfig CONFIG = ModConfig.createToml(Platform.getConfigDirectory(), "", MOD_ID, ModConfig.class);
 
-  @Override
-  public void onInitialize() {
-    ResourceConditions.register(CONFIG_ENABLED);
-    PayloadTypeRegistry.playC2S().register(RenameNameTagPayload.ID, RenameNameTagPayload.CODEC);
-    ServerPlayNetworking.registerGlobalReceiver(RenameNameTagPayload.ID, RenameNameTagPayload::apply);
+  public static void touch() {
     ReliableNameTagRecipes.touch();
   }
 
-  public static ResourceLocation of(String path) {
-    return ResourceLocation.fromNamespaceAndPath(MOD_ID, path);
+  @SuppressWarnings("all")
+  public static boolean test(List<String> options) {
+    for (String option : options) {
+      TrackedValue<?> value1 = ReliableNameTags.CONFIG.getValue(List.of(option));
+      if (value1 == null) return false;
+      var value = ((TrackedValue<Boolean>) value1).value();
+      if (value == false) return false;
+    }
+    return true;
+  }
+
+  public static Identifier of(String path) {
+    return Identifier.fromNamespaceAndPath(MOD_ID, path);
   }
 }
