@@ -152,7 +152,7 @@ public class RenameNameTagScreen extends Screen {
 	}
 
 	private boolean canAfford(int cost) {
-		return (player.experienceLevel >= cost) || player.hasInfiniteMaterials();
+		return ReliableNameTags.canAfford(player, cost);
 	}
 
 	private void onButtonClicked(Button button) {

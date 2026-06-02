@@ -4,6 +4,7 @@ import cc.cassian.reliablenametags.config.ModConfig;
 import cc.cassian.reliablenametags.recipe.ReliableNameTagRecipes;
 import folk.sisby.kaleido.lib.quiltconfig.api.values.TrackedValue;
 import net.minecraft.resources.Identifier;
+import net.minecraft.world.entity.player.Player;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -27,6 +28,10 @@ public class ReliableNameTags {
       if (value == false) return false;
     }
     return true;
+  }
+
+  public static boolean canAfford(Player player, int cost) {
+    return (player.experienceLevel >= cost) || player.hasInfiniteMaterials();
   }
 
   public static Identifier of(String path) {

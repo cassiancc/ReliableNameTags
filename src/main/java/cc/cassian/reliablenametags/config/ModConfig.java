@@ -24,7 +24,5 @@ public class ModConfig extends WrappedConfig {
 	@SuppressWarnings("unused")
 	@Comment("Adds a recipe type for renaming items.")
 	public boolean renameItemRecipe = true;
-	@Comment("Mobs that cannot be renamed.")
-	public ValueList<String> denylist = ValueList.create("");
 
 }

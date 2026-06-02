@@ -29,11 +29,11 @@ public record ConfigEnabledResourceCondition(List<String> options) implements Re
     return FabricEntrypoint.CONFIG_ENABLED;
   }
 
-	public boolean test(RegistryOps.@org.jspecify.annotations.Nullable RegistryInfoLookup registryInfo) {
+	public boolean test(RegistryOps.RegistryInfoLookup registryInfo) {
 		return ReliableNameTags.test(options);
 	}
 
-	public boolean test(HolderLookup.@Nullable Provider registryLookup) {
+	public boolean test(HolderLookup.Provider registryLookup) {
 		return ReliableNameTags.test(options);
 	}
 
