@@ -3,7 +3,7 @@ loaderVersion = "[4,)"
 
 issueTrackerURL="https://github.com/cassiancc/Reliable-Name-Tags/issues"
 displayURL="https://modrinth.com/project/reliable-name-tags/"
-logoFile= "/assets/reliablenametags/icon.png"
+logoFile= "icon.png"
 authors="cassiancc"
 license="Apache 2.0"
 

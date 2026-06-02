@@ -3,6 +3,8 @@
 <center text-align='center'>
 
 <a href='https://modrinth.com/mod/reliable-name-tags/versions?l=fabric'><img alt="fabric" height="56" src="https://raw.githubusercontent.com/intergrav/devins-badges/refs/heads/v3/assets/cozy/supported/fabric_vector.svg"></a>
+<a href='https://modrinth.com/mod/reliable-name-tags/versions?l=neoforge&l=forge'><img alt="forge" height="56" src="https://raw.githubusercontent.com/cassiancc/Cassians-Badges/refs/heads/main/cozy/NeoForge.svg"></a>
+
 </center><br>
 
 
@@ -10,7 +12,7 @@ Lets you right-click Name Tags in the air to change their name - a port of Conve
 
 ## Installation
 
-Reliable Name Tags is a client and server mod for Fabric 1.21.1 and 26.1.2. Its dependencies are listed below.
+Reliable Name Tags is a client and server mod for Fabric and NeoForge 1.21.1 and 26.1.2. Its dependencies are listed below.
 
 #### Dependencies
 - [Fabric API](https://modrinth.com/mod/fabric-api) is required on Fabric Loader.

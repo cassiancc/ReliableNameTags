@@ -1,0 +1,11 @@
+{
+  "type": "reliablenametags:rename_item",
+  "neoforge:conditions": [
+    {
+      "type": "reliablenametags:config",
+      "options": [
+        "renameItemRecipe"
+      ]
+    }
+  ]
+}

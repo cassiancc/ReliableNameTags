@@ -165,6 +165,20 @@ dependencies {
     }
 }
 
+stonecutter {
+    replacements.string {
+        direction = eval(current.version, ">1.21.10")
+        replace("ResourceLocation", "Identifier")
+    }
+    replacements.string {
+        direction = eval(current.version, ">26")
+        replace("GuiGraphics;", "GuiGraphicsExtractor;")
+    }
+    replacements.string {
+        direction = eval(current.version, ">26")
+        replace("GuiGraphics ", "GuiGraphicsExtractor ")
+    }
+}
 
 tasks {
     processResources {

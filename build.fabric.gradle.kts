@@ -198,6 +198,10 @@ tasks.named("processResources") {
 
 tasks {
 
+    processResources {
+        exclude("**/neoforge.mods.toml")
+    }
+
     register<Copy>("buildAndCollect") {
         group = "build"
         from(loomx.modJar.map { it.archiveFile })

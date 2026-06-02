@@ -1,4 +1,5 @@
-package cc.cassian.reliablenametags.neoforge;
+//? neoforge {
+/*package cc.cassian.reliablenametags.neoforge;
 
 import cc.cassian.reliablenametags.ReliableNameTags;
 import com.mojang.serialization.MapCodec;
@@ -28,3 +29,4 @@ public record ConfigEnabledResourceCondition(List<String> options) implements IC
 		return CODEC;
 	}
 }
+*///?}
