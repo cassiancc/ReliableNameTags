@@ -155,7 +155,7 @@ dependencies {
         modLocalRuntime("dev.isxander:yet-another-config-lib:${property("deps.yacl")}-fabric")
     }
     if (hasProperty("deps.rrv")) {
-        modImplementation("cc.cassian.rrv:reliable-recipe-viewer-fabric:${property("deps.rrv")}+${property("deps.minecraft")}")
+        modImplementation("cc.cassian.rrv:reliable-recipe-viewer-fabric:${property("deps.rrv")}")
     }
     modImplementation("eu.pb4:placeholder-api:${property("deps.placeholder_api")}")
     include("eu.pb4:placeholder-api:${property("deps.placeholder_api")}")

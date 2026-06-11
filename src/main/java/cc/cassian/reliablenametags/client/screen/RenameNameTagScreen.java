@@ -236,6 +236,11 @@ public class RenameNameTagScreen extends Screen {
 	}
 
 	public static void open(Player player, ItemStack stack) {
-		Minecraft.getInstance().setScreen(new RenameNameTagScreen((LocalPlayer) player, stack));
+		//? if >26.1 {
+		/*Minecraft.getInstance().gui.setScreen(
+		*///?} else {
+		Minecraft.getInstance().setScreen(
+		//?}
+		new RenameNameTagScreen((LocalPlayer) player, stack));
 	}
 }

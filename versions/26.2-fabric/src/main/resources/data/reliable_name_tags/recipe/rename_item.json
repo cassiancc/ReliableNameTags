@@ -1,0 +1,11 @@
+{
+  "type": "reliablenametags:rename_item",
+  "fabric:load_conditions": [
+    {
+      "condition": "reliablenametags:config",
+      "options": [
+        "renameItemRecipe"
+      ]
+    }
+  ]
+}
