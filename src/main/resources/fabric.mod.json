@@ -27,7 +27,8 @@
   "depends": {
     "fabricloader": ">=0.14.8",
     "fabric-api": "*",
-    "minecraft": "${minecraft}"
+    "minecraft": "${minecraft}",
+    "mru": ">=1.0.40"
   },
   "recommends": {
     "mcqoy": "*"

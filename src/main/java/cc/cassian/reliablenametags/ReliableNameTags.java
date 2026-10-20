@@ -1,5 +1,6 @@
 package cc.cassian.reliablenametags;
 
+import cc.cassian.mru.Platform;
 import cc.cassian.reliablenametags.compat.PlaceholderCompat;
 import cc.cassian.reliablenametags.config.ModConfig;
 import cc.cassian.reliablenametags.recipe.ReliableNameTagRecipes;
@@ -15,7 +16,7 @@ import java.util.List;
 public class ReliableNameTags {
 	public static final String MOD_ID = "reliablenametags";
 	public static final Logger LOGGER = LogManager.getLogger();
-	public static final ModConfig CONFIG = ModConfig.createToml(Platform.getConfigDirectory(), "", MOD_ID, ModConfig.class);
+	public static final ModConfig CONFIG = ModConfig.createToml(Platform.INSTANCE.configPath(), "", MOD_ID, ModConfig.class);
 	public static void touch() {
 		ReliableNameTagRecipes.touch();
 	}
@@ -40,15 +41,15 @@ public class ReliableNameTags {
 	}
 
 	public static Component parse(String customName) {
-		//? fabric || >26.1 {
-		if (Platform.isModLoaded("placeholder-api") && CONFIG.allowQuickText) {
+		if (placeholderApiPresent() && CONFIG.allowQuickText) {
 			return PlaceholderCompat.parse(customName);
 		} else {
 			return Component.literal(customName);
 		}
-		//?} else {
-		/*return Component.literal(customName);
-		*///?}
 
+	}
+
+	private static boolean placeholderApiPresent() {
+		return Platform.INSTANCE.isLoaded("placeholder-api") || Platform.INSTANCE.isLoaded("placeholder_api") || Platform.INSTANCE.isLoaded("placeholder_api_neoforge");
 	}
 }

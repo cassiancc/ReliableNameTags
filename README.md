@@ -10,20 +10,21 @@ Lets you right-click Name Tags in the air to change their name - a port of Conve
 Reliable Name Tags is a client and server mod for Fabric and NeoForge 1.21.1 and 26.1.2. Its dependencies are listed below.
 
 #### Dependencies
-- [Fabric API](https://modrinth.com/mod/fabric-api) is required on Fabric Loader.
+- [MRU](https://modrinth.com/mod/mru) is required.
 - [McQoy](https://modrinth.com/mod/mcqoy) is recommended to configure the mod.
+- On Fabric, [Placeholder API](https://modrinth.com/mod/placeholder-api) is recommended. 
+- On NeoForge, [Placeholder API NeoForge](https://modrinth.com/mod/placeholder-api-neoforge) or [Better ModList](https://modrinth.com/mod/better-modlist) is recommended.
 
 ## Features
 
 - Anvils are no longer required to rename a name tag. Just right click with the name tag, and a screen will open allowing the name tag to be renamed. 
-  - Renaming screen supports Placeholder API's QuickText format on Fabric, as well as on NeoForge 26.1+ thanks to an unofficial port.
-- Items can be renamed by crafting name tags with items.
+  - Renaming screen supports Placeholder API's [QuickText](https://placeholders.pb4.eu/user/quicktext/) format.
 - Renamed mobs will drop their name tags when killed. They can also be sheared to remove the name.
 
 ## FAQ
 
 - Will this mod be ported to other versions/loaders?
-  - The mod actively supports the latest version of Minecraft (currently 26.1). There is no plan to backport to older versions, please use the [original mod](https://modrinth.com/mod/convenient-name-tags).
+  - The mod actively supports the latest version of Minecraft (currently 26.3). There is no plan to backport to older versions, please use the [original mod](https://modrinth.com/mod/convenient-name-tags).
 
 ## License
 [![Code license (Apache)](https://img.shields.io/badge/code%20license-Apache-green.svg?style=flat-square)](https://github.com/cassiancc/reliable-name-tags/blob/main/LICENSE.txt)

@@ -112,6 +112,7 @@ repositories {
         }
     }
     maven("https://maven.offsetmonkey538.top/releases") { name = "OffsetMonkey538" }
+    flatDir { dirs("libs") }
     mavenCentral()
 }
 
@@ -152,6 +153,7 @@ dependencies {
     // McQoy
     implementation("folk.sisby:kaleido-config:${property("deps.kaleido")}")
     jarJar("folk.sisby:kaleido-config:${property("deps.kaleido")}")
+    implementation("cc.cassian.mru:mru-neoforge:${property("deps.mru")}+${property("deps.minecraft")}")
 
     // YACL  - required by McQoy
     if (hasProperty("deps.yacl")) {
@@ -166,7 +168,8 @@ dependencies {
     }
     if (hasProperty("deps.placeholder_api")) {
         implementation("eu.pb4:placeholder-api-neoforge:${property("deps.placeholder_api")}")
-        jarJar("eu.pb4:placeholder-api-neoforge:${property("deps.placeholder_api")}")
+    } else {
+        implementation("maven.local:TextPlaceholderAPI-neoforge:e1a427d5b9")
     }
 
 }
@@ -238,6 +241,7 @@ publishMods {
         accessToken = env.MODRINTH_API_KEY.orNull()
         minecraftVersions.add(property("deps.minecraft") as String)
         minecraftVersions.addAll(additionalVersions)
+        requires("mru")
         optional("mcqoy")
     }
 
@@ -246,5 +250,6 @@ publishMods {
         accessToken = env.CURSEFORGE_API_KEY.orNull()
         minecraftVersions.add(property("deps.minecraft") as String)
         minecraftVersions.addAll(additionalVersions)
+        requires("mru")
     }
 }

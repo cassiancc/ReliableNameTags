@@ -1,6 +1,6 @@
 package cc.cassian.reliablenametags.mixin;
 
-import cc.cassian.reliablenametags.Platform;
+import cc.cassian.mru.tags.CommonItemTags;
 import cc.cassian.reliablenametags.ReliableNameTags;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.InteractionHand;
@@ -40,7 +40,7 @@ public abstract class ArmorStandMixin extends Entity {
           	&& !stack.getHoverName().equals(this.getCustomName());
         boolean areShearsApplicable =
             ReliableNameTags.CONFIG.enableNameTagShearing
-            && stack.is(Platform.SHEAR_TOOLS)
+            && stack.is(CommonItemTags.SHEAR_TOOLS)
           	&& player.isShiftKeyDown();
 
         if (isNameTagApplicable || areShearsApplicable) {

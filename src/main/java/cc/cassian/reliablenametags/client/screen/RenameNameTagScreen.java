@@ -1,16 +1,19 @@
 package cc.cassian.reliablenametags.client.screen;
 
+import cc.cassian.mru.client.util.HudUtils;
 import cc.cassian.reliablenametags.ReliableNameTags;
+import cc.cassian.reliablenametags.mixin.ScreenAccessor;
 import cc.cassian.reliablenametags.network.RenameNameTagPayload;
+import com.mojang.blaze3d.platform.InputConstants;
 //? fabric {
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 //?}
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
+import net.minecraft.client.gui.components.Renderable;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.screens.Screen;
 //? if >26
@@ -18,10 +21,8 @@ import net.minecraft.client.input.KeyEvent;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import org.joml.Matrix4fc;
 
 public class RenameNameTagScreen extends Screen {
 
@@ -42,6 +43,7 @@ public class RenameNameTagScreen extends Screen {
 
 	private final LocalPlayer player;
 	private final ItemStack itemStack;
+	private int leftPos;
 
 	public RenameNameTagScreen(LocalPlayer player, ItemStack stack) {
 		super(Component.translatable(TITLE_KEY));
@@ -79,21 +81,21 @@ public class RenameNameTagScreen extends Screen {
 				? Component.translatable(APPLY_TOOLTIP_KEY)
 				: Component.translatable(NOT_ENOUGH_EXPERIENCE_KEY).withStyle(ChatFormatting.RED);
 		this.applyButton = Button.builder(Component.translatable(APPLY_KEY), this::onButtonClicked)
-				.bounds(halfWidth - 101, halfHeight + 14, 20, 20)
+				.bounds(halfWidth - 100, halfHeight + 14, 20, 20)
 				.tooltip(Tooltip.create(applyTooltip))
 				.build();
 		this.applyButton.active = canApply();
 		this.addRenderableWidget(applyButton);
 
 		this.clearButton = Button.builder(Component.translatable(CLEAR_KEY), this::onButtonClicked)
-				.bounds(halfWidth - 79, halfHeight + 14, 20, 20)
+				.bounds(halfWidth - 78, halfHeight + 14, 20, 20)
 				.tooltip(Tooltip.create(Component.translatable(CLEAR_TOOLTIP_KEY)))
 				.build();
 		this.clearButton.active = false;
 		this.addRenderableWidget(clearButton);
 
 		this.cancelButton = Button.builder(Component.translatable(CANCEL_KEY), this::onButtonClicked)
-				.bounds(halfWidth - 57, halfHeight + 14, 20, 20)
+				.bounds(halfWidth - 56, halfHeight + 14, 20, 20)
 				.tooltip(Tooltip.create(Component.translatable(CANCEL_TOOLTIP_KEY)))
 				.build();
 		this.addRenderableWidget(cancelButton);
@@ -104,6 +106,7 @@ public class RenameNameTagScreen extends Screen {
 			this.clearButton.active = true;
 		}
 		this.setInitialFocus(this.textField);
+		this.leftPos = (this.width - 176) / 2;
 	}
 
 	//? if >26 {
@@ -125,9 +128,10 @@ public class RenameNameTagScreen extends Screen {
 	// Shift + Enter: Clear
 	private boolean keyPressed(int keyCode, int modifiers) {
 		// 257 - Enter Key
-		if (keyCode == 257) {
+		if (keyCode == InputConstants.KEY_RETURN) {
 			// 1 - Shift Modifier
-			if (modifiers == 1 && this.clearButton.active) {
+			//~ if >26 '1'-> 'InputConstants.MOD_SHIFT'
+			if (modifiers == InputConstants.MOD_SHIFT && this.clearButton.active) {
 				this.onButtonClicked(this.clearButton);
 				return true;
 			}
@@ -177,41 +181,58 @@ public class RenameNameTagScreen extends Screen {
 
 	//~ if >26 'render(' -> 'extractRenderState(' {
 	@Override
-	public void extractRenderState(GuiGraphicsExtractor drawContext, int mouseX, int mouseY, float delta) {
+	public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float delta) {
+		//? if <26
+		//this.renderBackground(graphics, mouseX, mouseY, delta);
+
+		int width = 216;
+		int height = 88;
+		HudUtils.blit(graphics, ReliableNameTags.of("textures/gui/name_tag.png"), leftPos-18, (int) (this.height / 3.2), 0,0, width, height, width, height);
 		int halfWidth = this.width / 2;
 		int halfHeight = this.height / 2;
 
-		//? if <26
-		//this.renderBackground(drawContext, mouseX, mouseY, delta);
+		// draw title
 		int titleWidth = font.width(getTitle());
-		drawString(drawContext, (this.width/2)-titleWidth-10, getTitle(), titleWidth, halfWidth, halfHeight);
+		int titleX = (this.width / 2) - titleWidth - 10;
+		int titleY = halfHeight - 22;
+		drawString(graphics, titleX, titleY, getTitle());
+
+		// cost
 		var costMultiplier = ReliableNameTags.CONFIG.renameCostPerWholeStack ? 1 : this.itemStack.getCount();
 		var cost = ReliableNameTags.CONFIG.renameCost * costMultiplier;
 		if (cost > 0) {
 			boolean canAfford = canAfford(cost);
 			var text = Component.translatable(EXPERIENCE_REQUIRED_KEY, cost).withStyle(canAfford ? ChatFormatting.GREEN : ChatFormatting.RED);
 			var textWidth = font.width(text);
-			drawContext.fill(
+			int y = halfHeight+20;
+			graphics.fill(
 					halfWidth + 100 - textWidth - 3,
-					halfHeight - 24,
+					y-2,
 					halfWidth + 101,
-					halfHeight - 13,
+					y+9,
 					0x80000000
 			);
-			drawString(drawContext, ((this.getRectangle().left())+ halfWidth + 99 - textWidth), text, halfWidth, textWidth, halfHeight);
+			drawString(graphics, ((this.getRectangle().left())+ halfWidth + 99 - textWidth), y, text);
 		}
-		super.extractRenderState(drawContext, mouseX, mouseY, delta);
+
+		//? if >26 {
+		super.extractRenderState(graphics, mouseX, mouseY, delta);
+		//?} else {
+		/*for (Renderable renderable : ((ScreenAccessor) this).getRenderables()) {
+			renderable.extractRenderState(graphics, mouseX, mouseY, delta);
+		}
+		*///?}
 	}
 
-	private void drawString(GuiGraphicsExtractor drawContext, int x, Component text, int halfWidth, int textWidth, int halfHeight) {
-		int y = (int) (halfHeight - 22.0F);
-		var color = 0xFFFFFF;
+	private void drawString(GuiGraphicsExtractor graphics, int x, int y, Component text) {
+		var color = 4210752;
 		//? if >26 {
-		drawContext.text(font,
+		graphics.text(font,
 				text,
 				x,
 				y,
-				color | 0xFF000000
+				color | 0xFF000000,
+				false
 		);
 		//?} else {
         /*font.drawInBatch(
@@ -219,9 +240,9 @@ public class RenameNameTagScreen extends Screen {
                 x,
                 y,
                 color,
-                true,
-                drawContext.pose().last().pose(),
-                drawContext.bufferSource(),
+                false,
+                graphics.pose().last().pose(),
+                graphics.bufferSource(),
                 Font.DisplayMode.NORMAL,
                 0,
                 0x0000F0
@@ -236,11 +257,6 @@ public class RenameNameTagScreen extends Screen {
 	}
 
 	public static void open(Player player, ItemStack stack) {
-		//? if >26.1 {
-		/*Minecraft.getInstance().gui.setScreen(
-		*///?} else {
-		Minecraft.getInstance().setScreen(
-		//?}
-		new RenameNameTagScreen((LocalPlayer) player, stack));
+		HudUtils.setScreen(new RenameNameTagScreen((LocalPlayer) player, stack));
 	}
 }

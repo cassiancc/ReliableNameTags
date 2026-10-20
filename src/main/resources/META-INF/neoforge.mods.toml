@@ -20,5 +20,12 @@ versionRange="${minecraft}"
 ordering="NONE"
 side="BOTH"
 
+[[dependencies.reliablenametags]]
+modId="mru"
+type="required"
+versionRange="[1.0.40, )"
+ordering="NONE"
+side="BOTH"
+
 [[mixins]]
 config = "reliablenametags.mixins.json"
