@@ -153,7 +153,8 @@ dependencies {
     // McQoy
     implementation("folk.sisby:kaleido-config:${property("deps.kaleido")}")
     jarJar("folk.sisby:kaleido-config:${property("deps.kaleido")}")
-    implementation("cc.cassian.mru:mru-neoforge:${property("deps.mru")}+${property("deps.minecraft")}")
+    implementation("cc.cassian.asphodel:asphodel-api-neoforge:${property("deps.asphodel")}+${property("deps.minecraft")}")
+    jarJar("cc.cassian.asphodel:asphodel-api-neoforge:${property("deps.asphodel")}+${property("deps.minecraft")}")
 
     // YACL  - required by McQoy
     if (hasProperty("deps.yacl")) {
@@ -241,7 +242,7 @@ publishMods {
         accessToken = env.MODRINTH_API_KEY.orNull()
         minecraftVersions.add(property("deps.minecraft") as String)
         minecraftVersions.addAll(additionalVersions)
-        requires("mru")
+        requires("asphodel-api")
         optional("mcqoy")
     }
 
@@ -250,6 +251,6 @@ publishMods {
         accessToken = env.CURSEFORGE_API_KEY.orNull()
         minecraftVersions.add(property("deps.minecraft") as String)
         minecraftVersions.addAll(additionalVersions)
-        requires("mru")
+        requires("asphodel-api")
     }
 }

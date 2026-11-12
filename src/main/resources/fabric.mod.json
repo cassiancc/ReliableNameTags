@@ -25,10 +25,10 @@
     "reliablenametags.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=0.14.8",
+    "fabricloader": ">=0.19.5",
     "fabric-api": "*",
     "minecraft": "${minecraft}",
-    "mru": ">=1.0.40"
+    "asphodel_api": ">=1.1.2"
   },
   "recommends": {
     "mcqoy": "*"

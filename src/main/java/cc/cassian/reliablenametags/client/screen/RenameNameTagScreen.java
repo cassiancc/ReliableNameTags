@@ -1,6 +1,6 @@
 package cc.cassian.reliablenametags.client.screen;
 
-import cc.cassian.mru.client.util.HudUtils;
+import cc.cassian.asphodel.client.util.HudUtils;
 import cc.cassian.reliablenametags.ReliableNameTags;
 import cc.cassian.reliablenametags.mixin.ScreenAccessor;
 import cc.cassian.reliablenametags.network.RenameNameTagPayload;

@@ -10,7 +10,6 @@ Lets you right-click Name Tags in the air to change their name - a port of Conve
 Reliable Name Tags is a client and server mod for Fabric and NeoForge 1.21.1 and 26.1.2. Its dependencies are listed below.
 
 #### Dependencies
-- [MRU](https://modrinth.com/mod/mru) is required.
 - [McQoy](https://modrinth.com/mod/mcqoy) is recommended to configure the mod.
 - On Fabric, [Placeholder API](https://modrinth.com/mod/placeholder-api) is recommended. 
 - On NeoForge, [Placeholder API NeoForge](https://modrinth.com/mod/placeholder-api-neoforge) or [Better ModList](https://modrinth.com/mod/better-modlist) is recommended.

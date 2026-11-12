@@ -1,6 +1,6 @@
 package cc.cassian.reliablenametags;
 
-import cc.cassian.mru.Platform;
+import cc.cassian.asphodel.Platform;
 import cc.cassian.reliablenametags.compat.PlaceholderCompat;
 import cc.cassian.reliablenametags.config.ModConfig;
 import cc.cassian.reliablenametags.recipe.ReliableNameTagRecipes;

@@ -1,6 +1,6 @@
 package cc.cassian.reliablenametags.mixin;
 
-import cc.cassian.mru.tags.CommonItemTags;
+import cc.cassian.asphodel.tags.CommonItemTags;
 import cc.cassian.reliablenametags.ReliableNameTags;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.InteractionHand;

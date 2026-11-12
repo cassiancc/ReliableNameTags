@@ -145,7 +145,8 @@ dependencies {
     implementation("folk.sisby:kaleido-config:${property("deps.kaleido")}")
     include("folk.sisby:kaleido-config:${property("deps.kaleido")}")
     modLocalRuntime("maven.modrinth:mcqoy:${property("deps.mcqoy")}")
-    modImplementation("cc.cassian.mru:mru-fabric:${property("deps.mru")}+${property("deps.minecraft")}")
+    modImplementation("cc.cassian.asphodel:asphodel-api-fabric:${property("deps.asphodel")}+${property("deps.minecraft")}")
+    include("cc.cassian.asphodel:asphodel-api-fabric:${property("deps.asphodel")}+${property("deps.minecraft")}")
 
     // Mod Menu - required by McQoy
     if (hasProperty("deps.modmenu"))
@@ -249,7 +250,7 @@ publishMods {
         minecraftVersions.add(property("deps.minecraft") as String)
         minecraftVersions.addAll(additionalVersions)
         requires("fabric-api")
-        requires("mru")
+        requires("asphodel-api")
         requires("placeholder-api")
         optional("mcqoy")
     }
@@ -260,7 +261,7 @@ publishMods {
         minecraftVersions.add(property("deps.minecraft") as String)
         minecraftVersions.addAll(additionalVersions)
         requires("fabric-api")
+        requires("asphodel-api")
         requires("text-placeholder-api")
-        requires("mru")
     }
 }
